@@ -1,6 +1,10 @@
 const express = require("express")
 const app = express()
 
+app.use(express.json())
+
+const MAX_ID = 1000
+
 let persons = [
   { id: 1, name: "Arto Hellas", number: "040-123456" },
   { id: 2, name: "Ada Lovelace", number: "39-44-5323523" },
@@ -29,6 +33,33 @@ app.get("/api/persons/:id", (request, response) => {
   } else {
     response.status(404).end()
   }
+})
+
+const generateId = () => Math.floor(Math.random() * Math.floor(MAX_ID))
+
+app.post("/api/persons", (request, response) => {
+  const body = request.body
+  if (!body || !body.name.length || !body.number.length) {
+    return response.status(400).json({
+      error: "name or number missing",
+    })
+  }
+
+  if (persons.some(({ name }) => name === body.name)) {
+    return response.status(400).json({
+      error: "name must be unique",
+    })
+  }
+
+  const person = {
+    name: body.name,
+    number: body.number,
+    id: generateId(),
+  }
+
+  persons = persons.concat(person)
+
+  response.json(person)
 })
 
 app.delete("/api/persons/:id", (request, response) => {
