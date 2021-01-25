@@ -52,6 +52,21 @@ app.get("/api/persons/:id", (request, response, next) => {
     .catch(next)
 })
 
+app.put("/api/persons/:id", (request, response, next) => {
+  const body = request.body
+
+  const note = {
+    name: body.name,
+    number: body.number,
+  }
+
+  Person.findByIdAndUpdate(request.params.id, note, { new: true })
+    .then((updatedPerson) => {
+      response.json(updatedPerson)
+    })
+    .catch(next)
+})
+
 app.post("/api/persons", (request, response) => {
   const body = request.body
 
@@ -64,7 +79,6 @@ app.post("/api/persons", (request, response) => {
   const person = new Person({
     name: body.name,
     number: body.number,
-    date: new Date(),
   })
 
   person.save().then((savedPerson) => {
