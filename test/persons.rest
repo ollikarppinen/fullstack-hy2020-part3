@@ -6,8 +6,16 @@ POST http://localhost:3001/api/persons HTTP/1.1
 content-type: application/json
 
 {
-    "name": "Olli",
-    "number": "123"
+    "name": "Juu",
+    "number": "123-123-12"
+}
+###
+PUT http://localhost:3001/api/persons/60108a26e31d720dc82729c3 HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Juujuu",
+    "number": "123-123-123-123"
 }
 ###
 DELETE http://localhost:3001/api/persons/600f2bb3cfb53818bfe2d160 HTTP/1.1
