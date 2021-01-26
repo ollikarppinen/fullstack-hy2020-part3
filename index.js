@@ -11,7 +11,7 @@ app.use(cors())
 app.use(express.json())
 app.use(express.static("build"))
 
-morgan.token("body", (req, _res) => JSON.stringify(req.body))
+morgan.token("body", (req) => JSON.stringify(req.body))
 
 app.use(
   morgan(":method :url :status :res[content-length] - :response-time ms :body")
@@ -83,7 +83,7 @@ app.post("/api/persons", (request, response, next) => {
 
 app.delete("/api/persons/:id", (request, response, next) => {
   Person.findByIdAndRemove(request.params.id)
-    .then((result) => {
+    .then(() => {
       response.status(204).end()
     })
     .catch(next)

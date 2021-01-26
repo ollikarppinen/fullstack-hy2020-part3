@@ -8,7 +8,8 @@
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "deploy": "git push heroku main",
-    "logs:prod": "heroku logs --tail"
+    "logs:prod": "heroku logs --tail",
+    "lint": "eslint ."
   },
   "author": "",
   "license": "ISC",
@@ -21,6 +22,7 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "eslint": "^7.18.0",
     "nodemon": "^2.0.7"
   }
 }
